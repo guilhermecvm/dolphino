@@ -1,5 +1,19 @@
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+}
+
+#root {
+  display: flex;
+  height: 100%;
+}
+
+.editor :global(.public-DraftEditor-content) {
+  min-height: 140px;
 }
