@@ -12,13 +12,16 @@ import {
   UnderlineButton,
 } from 'draft-js-buttons'
 import createToolbarPlugin from 'draft-js-static-toolbar-plugin'
-import 'draft-js-static-toolbar-plugin/lib/plugin.css'
+import createColorPickerPlugin from './plugins/color-picker-plugin'
+import toolbarTheme from 'draft-js-static-toolbar-plugin/lib/plugin.css'
 
+const colorPickerPlugin = createColorPickerPlugin({ theme: toolbarTheme })
 const toolbarPlugin = createToolbarPlugin({
   structure: [
     BoldButton,
     ItalicButton,
     UnderlineButton,
+    colorPickerPlugin.ColorPickerButton,
     BlockquoteButton,
     CodeBlockButton,
     HeadlineOneButton,
@@ -27,7 +30,7 @@ const toolbarPlugin = createToolbarPlugin({
   ],
 })
 const { Toolbar } = toolbarPlugin
-const plugins = [toolbarPlugin]
+const plugins = [toolbarPlugin, colorPickerPlugin]
 
 const styles = {
   editorWrapper: {
