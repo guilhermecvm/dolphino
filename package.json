@@ -2,6 +2,7 @@
   "name": "dolphino",
   "version": "0.2.0",
   "private": true,
+  "homepage": "https://guilhermecvm.github.io/dolphino",
   "dependencies": {
     "draft-js": "^0.10.4",
     "draft-js-buttons": "^2.0.1",
@@ -15,9 +16,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
+    "gh-pages": "^1.0.0",
     "prop-types": "^15.6.0"
   }
 }
