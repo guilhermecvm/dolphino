@@ -12,16 +12,26 @@
     "react-dom": "^16.1.0",
     "react-scripts": "1.0.17"
   },
+  "devDependencies": {
+    "gh-pages": "^1.0.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^5.0.0",
+    "prettier": "^1.8.2",
+    "prop-types": "^15.6.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "predeploy": "yarn run build",
+    "precommit": "lint-staged"
   },
-  "devDependencies": {
-    "gh-pages": "^1.0.0",
-    "prop-types": "^15.6.0"
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --no-semi --trailing-comma es5 --write",
+      "git add"
+    ]
   }
 }
