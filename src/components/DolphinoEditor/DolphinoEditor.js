@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { EditorState } from 'draft-js'
 import Editor from 'draft-js-plugins-editor'
 import {
@@ -12,8 +12,10 @@ import {
   UnderlineButton,
 } from 'draft-js-buttons'
 import createToolbarPlugin from 'draft-js-static-toolbar-plugin'
-import createColorPickerPlugin from './plugins/color-picker-plugin'
+import createMarkdownPlugin from 'draft-js-markdown-plugin'
 import toolbarTheme from 'draft-js-static-toolbar-plugin/lib/plugin.css'
+import createColorPickerPlugin from './plugins/color-picker-plugin'
+import createPrismPlugin from './plugins/prism-plugin'
 
 const colorPickerPlugin = createColorPickerPlugin({ theme: toolbarTheme })
 const toolbarPlugin = createToolbarPlugin({
@@ -30,7 +32,12 @@ const toolbarPlugin = createToolbarPlugin({
   ],
 })
 const { Toolbar } = toolbarPlugin
-const plugins = [toolbarPlugin, colorPickerPlugin]
+const plugins = [
+  toolbarPlugin,
+  colorPickerPlugin,
+  createPrismPlugin(),
+  createMarkdownPlugin(),
+]
 
 const styles = {
   editorWrapper: {
@@ -55,7 +62,8 @@ class DolphinoEditor extends React.Component {
   }
 
   componentDidMount() {
-    this.editor.focus()
+    // for whatever reason, if this is not done async. Prism does not work
+    requestAnimationFrame(() => this.focus())
   }
 
   onChange = editorState => this.setState({ editorState })
