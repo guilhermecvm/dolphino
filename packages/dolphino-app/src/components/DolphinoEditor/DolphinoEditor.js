@@ -14,8 +14,8 @@ import {
 import createToolbarPlugin from 'draft-js-static-toolbar-plugin'
 import createMarkdownPlugin from 'draft-js-markdown-plugin'
 import toolbarTheme from 'draft-js-static-toolbar-plugin/lib/plugin.css'
-import createColorPickerPlugin from './plugins/color-picker-plugin'
-import createPrismPlugin from './plugins/prism-plugin'
+import createColorPickerPlugin from 'draft-js-color-picker-plugin'
+import createPrismPlugin from 'draft-js-prism-decorator-plugin'
 
 const colorPickerPlugin = createColorPickerPlugin({ theme: toolbarTheme })
 const toolbarPlugin = createToolbarPlugin({

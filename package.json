@@ -1,20 +1,7 @@
 {
-  "name": "dolphino",
-  "version": "0.2.0",
   "private": true,
   "homepage": "https://guilhermecvm.github.io/dolphino",
-  "dependencies": {
-    "draft-js": "^0.10.4",
-    "draft-js-buttons": "^2.0.1",
-    "draft-js-markdown-plugin": "^1.1.0",
-    "draft-js-plugins-editor": "^2.0.1",
-    "draft-js-prism": "^1.0.5",
-    "draft-js-static-toolbar-plugin": "^2.0.1",
-    "prismjs": "^1.8.4",
-    "react": "^16.1.0",
-    "react-dom": "^16.1.0",
-    "react-scripts": "1.0.17"
-  },
+  "workspaces": ["packages/*"],
   "devDependencies": {
     "gh-pages": "^1.0.0",
     "husky": "^0.14.3",
@@ -23,16 +10,15 @@
     "prop-types": "^15.6.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
+    "start": "yarn --cwd packages/dolphino-app start",
+    "build": "yarn --cwd packages/dolphino-app build",
+    "test": "yarn --cwd packages/dolphino-app test",
     "deploy": "gh-pages -d build",
     "predeploy": "yarn run build",
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,json,css}": [
+    "packages/**/*.{js,jsx,json,css}": [
       "prettier --single-quote --no-semi --trailing-comma es5 --write",
       "git add"
     ]

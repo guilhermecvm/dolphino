@@ -28,11 +28,12 @@ export default (config = {}) => {
     const selection = editorState.getSelection()
 
     // remove previous color styles from selection in content
-    const nextContentState = Object.keys(
-      customStyleMap
-    ).reduce((contentState, style) => {
-      return Modifier.removeInlineStyle(contentState, selection, style)
-    }, editorState.getCurrentContent())
+    const nextContentState = Object.keys(customStyleMap).reduce(
+      (contentState, style) => {
+        return Modifier.removeInlineStyle(contentState, selection, style)
+      },
+      editorState.getCurrentContent()
+    )
 
     // FIXME Try not to add to the undo stack
     let nextEditorState = EditorState.push(

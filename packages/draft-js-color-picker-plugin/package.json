@@ -1,0 +1,11 @@
+{
+  "name": "draft-js-color-picker-plugin",
+  "version": "0.2.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "peerDependencies": {
+    "draft-js": "^0.10.1",
+    "react": "^15.5.0 || ^16.0.0-rc",
+    "react-dom": "^15.5.0 || ^16.0.0-rc"
+  }
+}
