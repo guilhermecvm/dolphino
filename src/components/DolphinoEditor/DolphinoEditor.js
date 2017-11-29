@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { EditorState } from 'draft-js'
+import { EditorState, convertFromRaw, convertToRaw } from 'draft-js'
 import Editor from 'draft-js-plugins-editor'
 import {
   BlockquoteButton,
@@ -13,11 +13,18 @@ import {
 } from 'draft-js-buttons'
 import createToolbarPlugin from 'draft-js-static-toolbar-plugin'
 import createMarkdownPlugin from 'draft-js-markdown-plugin'
-import toolbarTheme from 'draft-js-static-toolbar-plugin/lib/plugin.css'
+import createEmojiPlugin from 'draft-js-emoji-plugin'
+import createHashtagPlugin from 'draft-js-hashtag-plugin'
 import createColorPickerPlugin from './plugins/color-picker-plugin'
 import createPrismPlugin from './plugins/prism-plugin'
+import initalContent from './initalContent'
+import 'draft-js-static-toolbar-plugin/lib/plugin.css'
+import 'draft-js-emoji-plugin/lib/plugin.css'
+import './editor.css'
 
-const colorPickerPlugin = createColorPickerPlugin({ theme: toolbarTheme })
+const colorPickerPlugin = createColorPickerPlugin()
+const emojiPlugin = createEmojiPlugin()
+const { EmojiSuggestions } = emojiPlugin
 const toolbarPlugin = createToolbarPlugin({
   structure: [
     BoldButton,
@@ -31,12 +38,15 @@ const toolbarPlugin = createToolbarPlugin({
     HeadlineThreeButton,
   ],
 })
+
 const { Toolbar } = toolbarPlugin
 const plugins = [
   toolbarPlugin,
+  emojiPlugin,
   colorPickerPlugin,
   createPrismPlugin(),
   createMarkdownPlugin(),
+  createHashtagPlugin({ theme: { hashtag: 'plugins-hashtag' } }),
 ]
 
 const styles = {
@@ -46,6 +56,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     background: '#fbfbfb',
+    color: '#222222',
   },
   editor: {
     flex: 1,
@@ -58,7 +69,9 @@ const styles = {
 class DolphinoEditor extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { editorState: EditorState.createEmpty() }
+    this.state = {
+      editorState: EditorState.createWithContent(convertFromRaw(initalContent)),
+    }
   }
 
   componentDidMount() {
@@ -66,11 +79,21 @@ class DolphinoEditor extends React.Component {
     requestAnimationFrame(() => this.focus())
   }
 
-  onChange = editorState => this.setState({ editorState })
+  save = () => convertToRaw(this.state.editorState.getCurrentContent())
 
   focus = () => this.editor.focus()
 
+  onChange = editorState => this.setState({ editorState })
+
+  blockStyleFn = contentBlock => {
+    const type = contentBlock.getType()
+    if (type === 'unstyled') {
+      return 'block-unstyled'
+    }
+  }
+
   render() {
+    window.save = this.save
     return (
       <div style={styles.editorWrapper} onClick={this.focus}>
         <div style={styles.editor}>
@@ -78,10 +101,12 @@ class DolphinoEditor extends React.Component {
             editorState={this.state.editorState}
             onChange={this.onChange}
             plugins={plugins}
+            blockStyleFn={this.blockStyleFn}
             ref={element => (this.editor = element)}
           />
         </div>
         <Toolbar />
+        <EmojiSuggestions />
       </div>
     )
   }

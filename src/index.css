@@ -13,7 +13,3 @@ body {
   display: flex;
   height: 100%;
 }
-
-.editor :global(.public-DraftEditor-content) {
-  min-height: 140px;
-}

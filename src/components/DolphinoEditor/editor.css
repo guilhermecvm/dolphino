@@ -1,0 +1,11 @@
+.plugins-hashtag {
+  color: #ffffff;
+  background: #aaaaaa;
+  padding: 3px 7px;
+  border-radius: 50px;
+  font-size: 0.9em;
+}
+
+.block-unstyled {
+  line-height: 1.5em;
+}
