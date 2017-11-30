@@ -62,11 +62,11 @@ const styles = {
     flex: 1,
     cursor: 'text',
     padding: '1em',
-    overflow: 'scroll',
+    overflow: 'auto',
   },
 }
 
-class DolphinoEditor extends React.Component {
+class DolphinoEditor extends Component {
   constructor(props) {
     super(props)
     this.state = {
